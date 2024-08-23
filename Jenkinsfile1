@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('git-checkout') {
             steps {
-                git changelog: false, poll: false, url: 'https://github.com/jaiswaladi246/secretsanta-generator.git'
+                git changelog: false, poll: false, url: 'https://github.com/Devops2022jk/secretsanta-generator.git'
             }
         }
         
@@ -56,7 +56,7 @@ pipeline {
             steps {
                script{
                    withDockerRegistry(credentialsId: 'docker-cred') {
-                    sh "docker build -t  santa1234 . "
+                    sh "docker build -t  santa12 . "
                  }
                }
             }
@@ -66,8 +66,8 @@ pipeline {
             steps {
                script{
                    withDockerRegistry(credentialsId: 'docker-cred') {
-                    sh "docker tag santa1234 devopsjk2023/santa1234:latest"
-                    sh "docker push devopsjk2023/santa1234:latest"
+                    sh "docker tag santa1234 devopsjk2023/santa12:latest"
+                    sh "docker push devopsjk2023/santa12:latest"
                  }
                }
             }
@@ -75,7 +75,7 @@ pipeline {
         
        stage('Docker Deploy') {
             steps {
-                sh "docker container run -it -d -p 86:8080 --name webapp devopsjk2023/santa1234:latest"
+                sh "docker container run -it -d -p 86:8080 --name webapp devopsjk2023/santa12:latest"
             }
         } 
         
