@@ -3,7 +3,7 @@ pipeline {
     
     tools {
         jdk 'jdk17'
-        maven 'maven3'
+        maven 'maven6'
     }
     
     environment{
@@ -56,7 +56,7 @@ pipeline {
             steps {
                script{
                    withDockerRegistry(credentialsId: 'docker-cred') {
-                    sh "docker build -t  santa12 . "
+                    sh "docker build -t  santa1 . "
                  }
                }
             }
@@ -66,8 +66,8 @@ pipeline {
             steps {
                script{
                    withDockerRegistry(credentialsId: 'docker-cred') {
-                    sh "docker tag santa1234 devopsjk2023/santa12:latest"
-                    sh "docker push devopsjk2023/santa12:latest"
+                    sh "docker tag santa1 devopsjk2023/santa1:latest"
+                    sh "docker push devopsjk2023/santa1:latest"
                  }
                }
             }
@@ -75,7 +75,7 @@ pipeline {
         
        stage('Docker Deploy') {
             steps {
-                sh "docker container run -it -d -p 86:8080 --name webapp devopsjk2023/santa12:latest"
+                sh "docker container run -it -d -p 86:8080 --name webapp devopsjk2023/santa1:latest"
             }
         } 
         
