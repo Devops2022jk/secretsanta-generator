@@ -76,12 +76,13 @@ pipeline {
        stage('Docker Image Scan') {
             steps {
                sh "trivy image devopsjk2023/santa2:latest "
+               sh "trivy image --severity HIGH,CRITICAL --format table -o santa2.html devopsjk2023/santa2:latest"
             }
         }   
 
        stage('Docker Deploy') {
             steps {
-                sh "docker container run -it -d -p 87:8080 --name webapp1 devopsjk2023/santa2:latest"
+                sh "docker container run -it -d -p 88:8080 --name webapp2 devopsjk2023/santa2:latest"
             }
         } 
         
