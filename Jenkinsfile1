@@ -56,7 +56,7 @@ pipeline {
             steps {
                script{
                    withDockerRegistry(credentialsId: 'docker-cred') {
-                    sh "docker build -t  santa1 . "
+                    sh "docker build -t  santa2 . "
                  }
                }
             }
@@ -66,16 +66,22 @@ pipeline {
             steps {
                script{
                    withDockerRegistry(credentialsId: 'docker-cred') {
-                    sh "docker tag santa1 devopsjk2023/santa1:latest"
-                    sh "docker push devopsjk2023/santa1:latest"
+                    sh "docker tag santa2 devopsjk2023/santa2:latest"
+                    sh "docker push devopsjk2023/santa2:latest"
                  }
                }
             }
         }
-        
+
+       stage('Docker Image Scan') {
+            steps {
+               sh "trivy image devopsjk2023/santa2:latest "
+            }
+        }   
+
        stage('Docker Deploy') {
             steps {
-                sh "docker container run -it -d -p 86:8080 --name webapp devopsjk2023/santa1:latest"
+                sh "docker container run -it -d -p 87:8080 --name webapp1 devopsjk2023/santa2:latest"
             }
         } 
         
